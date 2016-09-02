@@ -18,7 +18,9 @@
         li(class=(title == 'Contact') ? 'active' : undefined)
           a(href='/contact') Contact
         li(class=(title == 'Products') ? 'active' : undefined)
-          a(href='/products') Products
+          a(href='api/products') Products
+        li(class=(title == 'Product') ? 'active' : undefined)
+          a(href='/products/index') Product
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=(title == 'Login') ? 'active' : undefined)
