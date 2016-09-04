@@ -1,0 +1,66 @@
+extends layout
+
+block content
+  .page-header
+    h3 Products
+    
+    br
+    ul
+    each product, i in productlist
+        li  #{product._id} | #{product.name} | #{product.description} | #{product.qty}
+  
+  .page-header
+    h4 Insert Product
+  form.form-horizontal(id='product-form', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='name') Name
+      .col-sm-7
+        input.form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+    .form-group
+      label.col-sm-3.control-label(for='description') Description
+      .col-sm-7
+        input.form-control(type='description', name='description', id='description', placeholder='description', required)
+    .form-group
+      label.col-sm-3.control-label(for='qty') Quantity
+      .col-sm-7
+        input.form-control(type='qty', name='qty', id='qty', placeholder='Quantity', required, value='0')
+    .form-group
+      .col-sm-offset-3.col-sm-7
+        button.btn.btn-success(type='submit')
+          i.fa.fa-user-plus
+          | Insert
+
+  .page-header
+    h4 Update/Delete Product
+
+  form.form-horizontal(action='/products/update', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='id') ID
+      .col-sm-7
+        select.form-control
+            for product in productlist
+                option #{product._id}
+                
+    .form-group
+      label.col-sm-3.control-label(for='name') Name
+      .col-sm-7
+        input.form-control(type='name', name='name', id='name', placeholder='Name')
+    .form-group
+      label.col-sm-3.control-label(for='description') Description
+      .col-sm-7
+        input.form-control(type='description', name='description', id='description', placeholder='description')
+    .form-group
+      label.col-sm-3.control-label(for='qty') Quantity
+      .col-sm-7
+        input.form-control(type='qty', name='qty', id='qty', placeholder='Quantity', required)
+    .form-group
+      .col-sm-offset-3.col-sm-4
+        button.btn.btn-primary(type='submit' style='margin-right:5px')
+          i.fa.fa-lock
+          | Update 
+        button.btn.btn-primary(type='submit')
+          i.fa.fa-lock
+          | Delete
+    
