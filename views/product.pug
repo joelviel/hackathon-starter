@@ -1,6 +1,8 @@
 extends layout
 
+
 block content
+  
   .page-header
     h3 Products
     
@@ -10,6 +12,26 @@ block content
         li  #{product._id} | #{product.name} | #{product.description} | #{product.qty}
   
   .page-header
+
+
+
+
+    // test ajax for Sherly 
+
+    button#sherlyButton.btn.btn-primary Sherly
+    ul#resultAjaxGet
+    
+
+    hr
+    <style> #ProductTableContainer td {color:black} </style>
+    #ProductTableContainer
+
+    hr
+
+    // end of test for Sherly
+
+
+
     h4 Insert Product
   form.form-horizontal(id='product-form', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
@@ -60,7 +82,7 @@ block content
         button.btn.btn-primary(type='submit' style='margin-right:5px')
           i.fa.fa-floppy-save
           | Update 
-        button.btn.btn-primary(type='submit')
+        button.btn.btn-primary(type='submit', onclick='testHere()')
           i.fa.fa-minus
           | Delete
     

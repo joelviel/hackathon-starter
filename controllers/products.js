@@ -1,14 +1,36 @@
 const Product = require('../models/Product');
 
-/**
- * GET / api/products
- * Products page.
- */
-exports.getProducts = (req, res) => {
-   res.render('product', {
-    title: 'Products'
+
+// Restful API for Products 
+
+exports.list = (req, res) => {
+  Product.find({}, (err, productsList) => {
+    if (err) { return next(err); }
+    res.json({
+       "Result":"OK",
+       "Records":productsList
+      }
+    );
+
+
   });
 };
+
+exports.create = (req, res) => {
+//
+};
+
+
+exports.update = (req, res) => {
+//
+};
+
+
+exports.delete = (req, res) => {
+//
+};
+
+
 
 /**
  * GET /

@@ -109,7 +109,15 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get('/', homeController.index);
-app.get('/api/products', productsController.getProducts);
+
+
+// bakcend for jTable (by default, jTable CRUD with post methof, even to get data! Methods can be changed, cf jtable doc)
+app.get('/api/products', productsController.list);
+app.post('/api/products', productsController.create);
+app.put('/api/products', productsController.update);
+app.delete('/api/products', productsController.delete);
+
+
 app.get('/products/index', productsController.getProduct);
 app.post('/products/index', productsController.postInsertProduct);
 app.post('/product/update', productsController.postUpdateProduct);
