@@ -37,6 +37,7 @@
                             type: 'POST',
                             dataType: 'json',
                             data: postData,
+                            beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
                             success: function (data) {
                                 $dfd.resolve(data);
                             },
@@ -54,6 +55,7 @@
                             type: 'PUT',
                             dataType: 'json',
                             data: postData,
+                            beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
                             success: function (data) {
                                 $dfd.resolve(data);
                             },
@@ -73,6 +75,7 @@
                             type: 'DELETE',
                             dataType: 'json',
                             data: postData,
+                            beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
                             success: function (data) {
                                 $dfd.resolve(data);
                             },
@@ -99,7 +102,6 @@
                 },
 
             }
-
 
 
         });

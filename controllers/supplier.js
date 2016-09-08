@@ -34,7 +34,7 @@ exports.list = (req, res) => {
 
 exports.create = (req, res) => {
     const supplier = new Supplier({
-      contactPerson: req.body.name,
+      contactPerson: req.body.contactPerson,
     });
 
     Supplier.findOne({ contactPerson: req.body.name }, (err, existingSupplier) => {

@@ -9,15 +9,11 @@ html
     meta(name='csrf-header', content='X-CSRF-Token')
     title #{title} - Inventory
     link(rel='shortcut icon', href='/favicon.png')
-    link(rel='stylesheet', href='/css/jquery-ui-smoothness.css')
-    link(rel='stylesheet', href='/jtable/lib/themes/metro/lightgray/jtable.min.css')
-
     link(rel='stylesheet', href='/css/bootstrap-united.css')
     link(rel='stylesheet', href='/css/custom-united.min.css')
+    block stylesheets
     //link(rel='stylesheet', href='/css/main.css')
     
-
-
   body
     include partials/header
 
@@ -28,15 +24,10 @@ html
     include partials/footer
 
     script(src='/js/lib/jquery-2.2.4.min.js')
-    script(src='/js/jquery-ui.min.js')
     script(src='/js/lib/bootstrap.min.js')
-
-    script(src='/jtable/lib/jquery.jtable.min.js')
-    script(src='/js/products.jtable.js')
-    script(src='/js/suppliers.jtable.js')
-    
     script(src='/js/main.js')
-    script(src='/js/bundle.js')
+
+    block scripts
 
     // Google Analytics: change UA-XXXXX-X to be your site's ID
     

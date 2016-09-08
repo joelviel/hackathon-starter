@@ -1,6 +1,16 @@
 extends layout
 
+block stylesheets
+	link(rel='stylesheet', href='/css/jquery-ui-smoothness.css')
+	link(rel='stylesheet', href='/jtable/lib/themes/metro/blue/jtable.min.css')
+
 block content
 	.page-header
 		h3 jTable Products
+	
 	#ProductTableContainer
+
+block scripts
+	script(src='/js/jquery-ui.min.js')
+	script(src='/jtable/lib/jquery.jtable.min.js')
+	script(src='/js/products.jtable.js')
