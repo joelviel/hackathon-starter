@@ -28,7 +28,7 @@ dotenv.load({ path: '.env.example' });
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
-const productsController = require('./controllers/products');
+const productController = require('./controllers/product');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
@@ -80,7 +80,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
+  if (req.path === '/api/upload' || req.path === '/api/products') {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -105,22 +105,40 @@ app.use(function(req, res, next) {
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
-/**
- * Primary app routes.
- */
+
+// Routes rendering a pages
+
 app.get('/', homeController.index);
+app.get('/products', productController.index); // table reactjs
+app.get('/products/jtable', productController.jtable); // jtable
 
 
-// bakcend for jTable (by default, jTable CRUD with post methof, even to get data! Methods can be changed, cf jtable doc)
-app.get('/api/products', productsController.list);
-app.post('/api/products', productsController.create);
-app.put('/api/products', productsController.update);
-app.delete('/api/products', productsController.delete);
+// API to CRUD Product
+
+app.get('/api/products', productController.list);
+app.post('/api/products', productController.create);
+app.put('/api/products', productController.update);
+app.delete('/api/products', productController.delete);
 
 
-app.get('/products/index', productsController.getProduct);
-app.post('/products/index', productsController.postInsertProduct);
-app.post('/product/update', productsController.postUpdateProduct);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Default routes in boilerplate
+
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);

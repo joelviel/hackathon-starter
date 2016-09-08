@@ -28,8 +28,10 @@
           a(class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="true") Inventory
             span.caret
           ul.dropdown-menu
-            li(class=(title == 'Inventory List') ? 'active' : undefined)
-              a(href='/products/index') Inventory List
+            li(class=(title == 'Products') ? 'active' : undefined)
+              a(href='/products') Products
+            li(class=(title == 'Products jtable') ? 'active' : undefined)
+              a(href='/products/jtable') Products jtable
         li(class='dropdown')
           a(class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="true") Orders
             span.caret

@@ -6,7 +6,7 @@
 
     $(document).ready(function () {
         $('#ProductTableContainer').jtable({
-            title: 'Table of products',
+            title: 'Table of Products',
 
             actions: {
                 
@@ -92,12 +92,17 @@
                 
                 name: {
                     title: 'Name',
-                    width: '50%'
+                    width: '40%'
                 },
                 
                 description: {
                     title: 'Description',
-                    width: '50%'
+                    width: '40%'
+                },
+
+                 qty: {
+                    title: 'Quantity',
+                    width: '20%'
                 },
             }
 

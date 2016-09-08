@@ -1,11 +1,13 @@
 {
   "name": "hackathon-starter",
-  "version": "4.2.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sahat/hackathon-starter.git"
+    "url": "https://github.com/joelviel/hackathon-starter.git"
   },
   "scripts": {
+    "dev": "webpack -d --watch",
+    "build" : "webpack -p",
     "start": "node app.js",
     "test": "mocha --reporter spec --timeout 5000"
   },
