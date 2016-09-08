@@ -29,6 +29,7 @@ dotenv.load({ path: '.env.example' });
  */
 const homeController = require('./controllers/home');
 const productController = require('./controllers/product');
+const supplierController = require('./controllers/supplier');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
@@ -80,7 +81,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload' || req.path === '/api/products') {
+  if (req.path === '/api/upload') {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -111,14 +112,21 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 app.get('/', homeController.index);
 app.get('/products', productController.index); // table reactjs
 app.get('/products/jtable', productController.jtable); // jtable
+app.get('/suppliers/jtable', supplierController.jtable); // jtable
 
 
-// API to CRUD Product
+// API to CRUD data
 
 app.get('/api/products', productController.list);
 app.post('/api/products', productController.create);
 app.put('/api/products', productController.update);
 app.delete('/api/products', productController.delete);
+
+app.get('/api/suppliers', supplierController.list);
+app.post('/api/suppliers', supplierController.create);
+app.put('/api/suppliers', supplierController.update);
+app.delete('/api/suppliers', supplierController.delete);
+
 
 
 

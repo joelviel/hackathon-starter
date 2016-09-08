@@ -5,8 +5,8 @@
         
 
     $(document).ready(function () {
-        $('#ProductTableContainer').jtable({
-            title: 'Table of Products',
+        $('#SupplierTableContainer').jtable({
+            title: 'Table of Suppliers',
             paging: true,
             pageSize: 10,
             sorting: true,
@@ -16,7 +16,7 @@
                 listAction: function (postData, jtParams) {
                     return $.Deferred(function ($dfd) {
                         $.ajax({
-                            url: '/api/products',
+                            url: '/api/suppliers',
                             type: 'GET',
                             dataType: 'json',
                             data: postData,
@@ -33,10 +33,9 @@
                 createAction: function (postData, jtParams) {
                     return $.Deferred(function ($dfd) {
                         $.ajax({
-                            url: '/api/products',
+                            url: '/api/suppliers',
                             type: 'POST',
                             dataType: 'json',
-                            beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
                             data: postData,
                             success: function (data) {
                                 $dfd.resolve(data);
@@ -51,10 +50,9 @@
                 updateAction: function(postData, jtParams) {
                     return $.Deferred(function ($dfd) {
                         $.ajax({
-                            url: '/api/products',
+                            url: '/api/suppliers',
                             type: 'PUT',
                             dataType: 'json',
-                            beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
                             data: postData,
                             success: function (data) {
                                 $dfd.resolve(data);
@@ -71,10 +69,9 @@
                 deleteAction: function(postData) {
                     return $.Deferred(function ($dfd) {
                         $.ajax({
-                            url: '/api/products',
+                            url: '/api/suppliers',
                             type: 'DELETE',
                             dataType: 'json',
-                            beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
                             data: postData,
                             success: function (data) {
                                 $dfd.resolve(data);
@@ -96,25 +93,16 @@
                     list: false
                 },
                 
-                name: {
+                contactPerson: {
                     title: 'Name',
-                    width: '40%'
-                },
-                
-                description: {
-                    title: 'Description',
-                    width: '40%'
+                    width: '100%'
                 },
 
-                 qty: {
-                    title: 'Quantity',
-                    width: '20%'
-                },
             }
 
 
 
         });
 
-        $('#ProductTableContainer').jtable('load');
+        $('#SupplierTableContainer').jtable('load');
     });

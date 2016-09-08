@@ -12,8 +12,6 @@ exports.index = (req, res) => {
   });
 };
 
-
-
 // jtable
 exports.jtable = (req, res) => {
   res.render('product-jtable', {
@@ -35,7 +33,6 @@ exports.list = (req, res) => {
 };
 
 exports.create = (req, res) => {
-    
     console.log('API Product > Create '+req.body.name);
     
     req.assert('name', 'Name cannot be empty').notEmpty();

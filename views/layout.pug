@@ -6,15 +6,17 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(name='theme-color' content='#4DA5F4')
     meta(name='csrf-token', content=_csrf)
+    meta(name='csrf-header', content='X-CSRF-Token')
     title #{title} - Inventory
     link(rel='shortcut icon', href='/favicon.png')
     link(rel='stylesheet', href='/css/jquery-ui-smoothness.css')
-    link(rel='stylesheet', href='/jtable/lib/themes/metro/blue/jtable.min.css')
-    link(rel='stylesheet', href='/css/main.css')
+    link(rel='stylesheet', href='/jtable/lib/themes/metro/lightgray/jtable.min.css')
+
+    link(rel='stylesheet', href='/css/bootstrap-united.css')
+    link(rel='stylesheet', href='/css/custom-united.min.css')
+    //link(rel='stylesheet', href='/css/main.css')
     
 
-    //link(rel='stylesheet', href='/css/bootstrap-united.css')
-    //link(rel='stylesheet', href='/css/custom-united.min.css')
 
   body
     include partials/header
@@ -31,9 +33,9 @@ html
 
     script(src='/jtable/lib/jquery.jtable.min.js')
     script(src='/js/products.jtable.js')
+    script(src='/js/suppliers.jtable.js')
     
     script(src='/js/main.js')
-    script(src='/js/sherly.js')
     script(src='/js/bundle.js')
 
     // Google Analytics: change UA-XXXXX-X to be your site's ID
