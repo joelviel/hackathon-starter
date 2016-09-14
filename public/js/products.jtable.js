@@ -98,17 +98,26 @@
                 
                 name: {
                     title: 'Name',
-                    width: '40%'
+                    width: '30%'
                 },
                 
                 description: {
                     title: 'Description',
-                    width: '40%'
+                    width: '40%',
+                    type: 'textarea'
                 },
 
-                 qty: {
-                    title: 'Quantity',
-                    width: '20%'
+                 currentQty: {
+                    title: 'Current Qty',
+                    width: '15%',
+                    edit: false,
+                },
+
+                soldQty: {
+                    title: 'Sold Qty',
+                    width: '15%',
+                    edit: false,
+                    create: false
                 },
             }
 

@@ -30,6 +30,7 @@ dotenv.load({ path: '.env.example' });
 const homeController = require('./controllers/home');
 const productController = require('./controllers/product');
 const supplierController = require('./controllers/supplier');
+const purchaseOrderController = require('./controllers/purchaseOrder');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
@@ -113,6 +114,7 @@ app.get('/', homeController.index);
 app.get('/products', productController.index); // table reactjs
 app.get('/products/jtable', productController.jtable); // jtable
 app.get('/suppliers/jtable', supplierController.jtable); // jtable
+app.get('/purchaseOrders/jtable',  purchaseOrderController.jtable); // jtable
 
 
 // API to CRUD data
@@ -121,6 +123,11 @@ app.get('/api/products', productController.list);
 app.post('/api/products', productController.create);
 app.put('/api/products', productController.update);
 app.delete('/api/products', productController.delete);
+
+app.get('/api/purchaseOrders', purchaseOrderController.list);
+app.post('/api/purchaseOrders', purchaseOrderController.create);
+app.put('/api/purchaseOrders', purchaseOrderController.update);
+app.delete('/api/purchaseOrders', purchaseOrderController.delete);
 
 app.get('/api/suppliers', supplierController.list);
 app.post('/api/suppliers', supplierController.create);

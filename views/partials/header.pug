@@ -25,7 +25,7 @@
             li(class=(title == 'Customer List') ? 'active' : undefined)
               a(href='/customer/') Customer List
         li(class='dropdown')
-          a(class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="true") Inventory
+          a(class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="true") Products
             span.caret
           ul.dropdown-menu
             li(class=(title == 'Products') ? 'active' : undefined)
@@ -37,22 +37,11 @@
             span.caret
           ul.dropdown-menu
             li(class=(title == 'Purchase Order') ? 'active' : undefined)
-              a(href='/purchase/') Purchase Order
+              a(href='/purchaseOrders/jtable') Purchase Order
             li(class=(title == 'Invoice') ? 'active' : undefined)
               a(href='/invoice/') Invoice
             li(class=(title == 'Report') ? 'active' : undefined)
               a(href='/report/') Report
-          
-
-        //li(class=(title == 'API Examples') ? 'active' : undefined)
-          //a(href='/api') API Examples
-        //li(class=(title == 'Contact') ? 'active' : undefined)
-          //a(href='/contact') Contact
-        //li(class=(title == 'Products') ? 'active' : undefined)
-          //a(href='api/products') Products
-        //li(class=(title == 'Product') ? 'active' : undefined)
-          //a(href='/products/index') Product
-
 
       ul.nav.navbar-nav.navbar-right
         if !user

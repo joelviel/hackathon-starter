@@ -22,7 +22,9 @@ exports.jtable = (req, res) => {
 
 
 // Restful API for Product 
-
+/*
+*   Returns list of products
+*/
 exports.list = (req, res) => {
   Product.find({}, (err, products) => {
     if (err) { return next(err); }
@@ -32,33 +34,33 @@ exports.list = (req, res) => {
     });
 };
 
-exports.create = (req, res) => {
-    console.log('API Product > Create '+req.body.name);
-    
+/*
+*   Insert new product
+*/
+exports.create = (req, res) => {  
     req.assert('name', 'Name cannot be empty').notEmpty();
     req.assert('description', 'Description cannot be empty').notEmpty();
-    req.assert('qty', 'Quantity cannot be empty').notEmpty();
-    req.assert('qty', 'Quantity must be numeric').isNumeric();
+    req.assert('currentQty', 'Current quantity cannot be empty').notEmpty();
+    req.assert('currentQty', 'Current quantity must be a number').isNumeric();
 
     const errors = req.validationErrors();
 
     if (errors) {
       return res.json({
        "Result":"ERROR",
-       "Message":errors
+       "Message":errors[0].msg
       });
     }
 
     const product = new Product({
       name: req.body.name,
       description: req.body.description,
-      qty: req.body.qty
+      currentQty: req.body.currentQty,
+      soldQty: 0
     });
 
     Product.findOne({ name: req.body.name }, (err, existingProduct) => {
       
-      console.log('Looking for exsiting product with the same name...');      
-
       if (existingProduct) {
         return res.json({
           "Result":"ERROR",
@@ -67,18 +69,14 @@ exports.create = (req, res) => {
       }
 
       product.save((err, newProduct) => {
-        
-      console.log('No entry found, creating new product...');   
 
         if (err) { 
           return res.json({
             "Result":"ERROR",
-            "Message": err
+            "Message": err.msg
           });
         }
-        
-      console.log('Saving entry in DB OK. Returning Ajax response..');   
-
+     
         return res.json({
           "Result":"OK",
           "Record": newProduct
@@ -86,19 +84,20 @@ exports.create = (req, res) => {
       });
     }); };
 
+
+/*
+*   Update existing product
+*/
 exports.update = (req, res) => {
-//
   req.assert('name', 'Name cannot be empty').notEmpty();
   req.assert('description', 'Description cannot be empty').notEmpty();
-  req.assert('qty', 'Quantity cannot be empty').notEmpty();
-  req.assert('qty', 'Quantity must be numeric').isNumeric();
-
+  
   const errors = req.validationErrors();
 
   if (errors) {
     return res.json({
        "Result":"ERROR",
-       "Message":errors
+       "Message":errors[0].msg
       });
   }
 
@@ -106,17 +105,16 @@ exports.update = (req, res) => {
     if (err) { 
       return res.json({
        "Result":"ERROR",
-       "Message":err
+       "Message":err.msg
       });
     }
     product.name = req.body.name;
     product.description = req.body.description;
-    product.qty = req.body.qty;
     product.save((err) => {
       if (err) {
         return res.json({
           "Result":"ERROR",
-          "Message":err
+          "Message":err.msg
           });
       }
      return res.json({
@@ -124,10 +122,12 @@ exports.update = (req, res) => {
         });
     });
   });
-
-//
 };
 
+
+/*
+*   Update existing product
+*/
 exports.delete = (req, res) => {
   Product.remove({ _id: req.body._id }, (err) => {
     if (err) { return next(err); }

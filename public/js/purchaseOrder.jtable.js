@@ -5,18 +5,16 @@
         
 
     $(document).ready(function () {
-        $('#SupplierTableContainer').jtable({
-            title: 'Table of Suppliers',
+        $('#PurchaseOrderTableContainer').jtable({
+            title: 'Table of PurchaseOrders',
             paging: true,
             pageSize: 10,
-            sorting: true,
-            defaultSorting: 'name ASC',
             actions: {
                 
                 listAction: function (postData, jtParams) {
                     return $.Deferred(function ($dfd) {
                         $.ajax({
-                            url: '/api/suppliers',
+                            url: '/api/purchaseOrders',
                             type: 'GET',
                             dataType: 'json',
                             data: postData,
@@ -33,11 +31,11 @@
                 createAction: function (postData, jtParams) {
                     return $.Deferred(function ($dfd) {
                         $.ajax({
-                            url: '/api/suppliers',
+                            url: '/api/purchaseOrders',
                             type: 'POST',
                             dataType: 'json',
-                            data: postData,
                             beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
+                            data: postData,
                             success: function (data) {
                                 $dfd.resolve(data);
                             },
@@ -51,11 +49,11 @@
                 updateAction: function(postData, jtParams) {
                     return $.Deferred(function ($dfd) {
                         $.ajax({
-                            url: '/api/suppliers',
+                            url: '/api/purchaseOrders',
                             type: 'PUT',
                             dataType: 'json',
-                            data: postData,
                             beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
+                            data: postData,
                             success: function (data) {
                                 $dfd.resolve(data);
                             },
@@ -71,11 +69,11 @@
                 deleteAction: function(postData) {
                     return $.Deferred(function ($dfd) {
                         $.ajax({
-                            url: '/api/suppliers',
+                            url: '/api/purchaseOrder',
                             type: 'DELETE',
                             dataType: 'json',
-                            data: postData,
                             beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
+                            data: postData,
                             success: function (data) {
                                 $dfd.resolve(data);
                             },
@@ -96,32 +94,26 @@
                     list: false
                 },
                 
-                name: {
-                    title: 'Name',
-                    width: '20%'
+                purchaseDate: {
+                    title: 'Purchase Date',
+                    width: '30%'
                 },
-                address: {
-                    title: 'Address',
+                
+                paidDate: {
+                    title: 'Paid Date',
                     width: '30%',
-                    type: 'textarea'
                 },
-                phone: {
-                    title: 'Phone',
-                    width: '15%',
-                },
-                company: {
-                    title: 'Company',
-                    width: '15%'
-                },
-                email: {
-                    title: 'Email',
-                    width: '20%'
-                }
 
+                supplier: {
+                    title: 'Supplier',
+                    width: '40%',
+                    edit: false,
+                },
             }
+
 
 
         });
 
-        $('#SupplierTableContainer').jtable('load');
+        $('#PurchaseOrderTableContainer').jtable('load');
     });
