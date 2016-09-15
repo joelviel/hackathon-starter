@@ -117,6 +117,10 @@ app.get('/suppliers/jtable', supplierController.jtable); // jtable
 app.get('/purchaseOrders/jtable',  purchaseOrderController.jtable); // jtable
 
 
+app.get('/purchaseOrders/input',  purchaseOrderController.input); //form
+app.get('/purchaseOrders/addProduct',  purchaseOrderController.addProduct);
+
+
 // API to CRUD data
 
 app.get('/api/products', productController.list);

@@ -84,7 +84,7 @@ exports.create = (req, res) => {
       if (err) { 
         return res.json({
           "Result":"ERROR",
-          "Message": err
+          "Message": err.errmsg
         });
       }
           

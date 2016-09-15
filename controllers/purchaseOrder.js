@@ -1,4 +1,6 @@
 const PurchaseOrder = require('../models/PurchaseOrder');
+const Product = require('../models/Product');
+const Supplier = require('../models/Supplier');
 
 // jtable
 exports.jtable = (req, res) => {
@@ -7,14 +9,37 @@ exports.jtable = (req, res) => {
   });
 };
 
+// input purchase
+exports.input = (req, res) => {
 
+  Supplier.find({}, (err, existingSuppliers) => {
+    if (err) { return next(err); }
+    res.render('purchase/inputPurchase', {
+      title: 'New Purchase',
+      suppliers: existingSuppliers,
+
+    });
+  });
+};
+
+
+// add product
+exports.addProduct = (req, res) => {
+  Product.find({}, (err, existingProducts) => {
+    if (err) { return next(err); }
+
+    res.render('purchase/addProduct', {
+      title: 'New Purchase',
+      products: existingProducts
+    });
+  });
+};
 
 // Restful API for purchaseOrder 
 /*
 *   Returns list of purchaseOrder
 */
 exports.list = (req, res) => {
-    console.log ('called');
     PurchaseOrder
         .find({ })
         .populate('supplier', 'name') // only return the Supplier's name

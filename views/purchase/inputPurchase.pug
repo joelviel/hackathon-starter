@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 New Purchase
+    br
+    h4 Purchase Header
+
+  form.form-horizontal(action='api/purchaseOrders', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='purchaseDate') Purchase Date
+      .col-sm-7
+        input.form-control(type='date', name='purchaseDate', id='purchaseDate', autofocus, required)
+    .form-group
+      label.col-sm-3.control-label(for='paidDate') Paid Date
+      .col-sm-7
+        input.form-control(type='date', name='paidDate', id='paidDate', required)
+    .form-group
+      label.col-sm-3.control-label(for='supplier') Supplier
+      .col-sm-7
+        select.form-control(id='supplier')
+            each item in suppliers
+                option= item.name
+
+    .page-header
+        h4 Purchase Details
+
+    button.btn.btn-success(id='addProduct')
+     i.fa.fa-user-plus
+     | Add Product
+
+  div#addProduct
+
+block scripts
+    script(src='/js/addProducts.js')
+    

@@ -1,0 +1,21 @@
+form.form-horizontal(action='api/purchaseOrders', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='productName') Product Name
+      .col-sm-7
+        select.form-control(id='product')
+            each item in products
+                option= item.name
+    .form-group
+      label.col-sm-3.control-label(for='qty') Quantity
+      .col-sm-7
+        input.form-control(type='text', name='qty', id='qty', autofocus, required)
+    .form-group
+      label.col-sm-3.control-label(for='price') Price
+      .col-sm-7
+        input.form-control(type='text', name='price', id='price', required)
+
+        button.btn.btn-success(id='addTransaction' style="margin-top:10px")
+            i.fa.fa-user-plus
+            | Save
+        
