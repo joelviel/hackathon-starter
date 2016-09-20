@@ -1,0 +1,58 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 New Purchase
+    br
+    h4 Purchase Header
+
+  form.form-horizontal(action='api/purchaseOrders', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='purchaseDate') Purchase Date
+      .col-sm-7
+        input.form-control(type='date', name='purchaseDate', id='purchaseDate', autofocus, required)
+    .form-group
+      label.col-sm-3.control-label(for='paidDate') Paid Date
+      .col-sm-7
+        input.form-control(type='date', name='paidDate', id='paidDate')
+    .form-group
+      label.col-sm-3.control-label(for='supplierId') Supplier Id
+      .col-sm-7
+        select.form-control(id='supplierId' disabled='disabled')
+            each item in suppliers
+                option= item.id
+    .form-group
+      label.col-sm-3.control-label(for='supplierName') Supplier
+      .col-sm-7
+        select.form-control(id='supplierName')
+            each item in suppliers
+                option= item.name
+
+    .page-header
+        h4 Purchase Details
+
+  div(style='margin-bottom:30px;text-align:left')
+    button.btn.btn-primary.btn-success(id='addProduct')
+     i.fa.fa-plus
+     | Add Product
+    button.btn.btn-primary.btn-reset(id='clearProducts' style='margin-left:10px')
+     i.fa.fa-minus
+     | Clear Products
+
+    div#showProducts(style='margin-top:30px')
+    div#addProduct
+
+  .page-header
+        h4 Save Transaction
+  div(style='text-align:center')
+    button.btn.btn-primary.btn-success(id='savePurchase')
+     i.fa.fa-plus
+     | Save Purchase
+    button.btn.btn-primary.btn-reset(id='cancelPurchase' style='margin-left:10px')
+     i.fa.fa-plus
+     | Cancel Purchase
+
+block scripts
+    script(src='/js/newPurchase.js')
+    

@@ -116,9 +116,11 @@ app.get('/products/jtable', productController.jtable); // jtable
 app.get('/suppliers/jtable', supplierController.jtable); // jtable
 app.get('/purchaseOrders/jtable',  purchaseOrderController.jtable); // jtable
 
+//  Purchase
 
-app.get('/purchaseOrders/input',  purchaseOrderController.input); //form
-app.get('/purchaseOrders/addProduct',  purchaseOrderController.addProduct);
+app.get('/purchaseOrders/newPurchase',  purchaseOrderController.newPurchase); //header form
+app.get('/purchaseOrders/addProduct',  purchaseOrderController.addProduct); //child form
+app.get('/purchaseOrders/showProducts',  purchaseOrderController.showProducts); //products list
 
 
 // API to CRUD data
