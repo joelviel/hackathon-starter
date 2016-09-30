@@ -1,5 +1,8 @@
 extends ../layout
 
+block stylesheets
+  link(rel='stylesheet', href='/css/jquery-ui-smoothness.css')
+
 block content
   .page-header
     h3 New Purchase
@@ -11,11 +14,11 @@ block content
     .form-group
       label.col-sm-3.control-label(for='purchaseDate') Purchase Date
       .col-sm-7
-        input.form-control(type='date', name='purchaseDate', id='purchaseDate', autofocus, required)
+        input.form-control(type='text', name='purchaseDate', id='purchaseDate', required)
     .form-group
       label.col-sm-3.control-label(for='paidDate') Paid Date
       .col-sm-7
-        input.form-control(type='date', name='paidDate', id='paidDate')
+        input.form-control(type='text', name='paidDate', id='paidDate')
     .form-group
       label.col-sm-3.control-label(for='supplierId') Supplier Id
       .col-sm-7
@@ -54,5 +57,7 @@ block content
      | Cancel Purchase
 
 block scripts
+    script(src='/js/jquery-ui.min.js')
     script(src='/js/newPurchase.js')
+    
     

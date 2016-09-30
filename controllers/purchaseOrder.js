@@ -2,7 +2,7 @@ const PurchaseOrder = require('../models/PurchaseOrder');
 const Product = require('../models/Product');
 const Supplier = require('../models/Supplier');
 const PurchaseDetail = require('../models/TransactionDetail');
-const LocalStorage = require('node-localstorage').LocalStorage;
+const async = require ('async');
 
 // jtable
 exports.jtable = (req, res) => {
@@ -61,63 +61,60 @@ exports.list = (req, res) => {
 *   Create and save new purchaseOrder
 */
 exports.create = (req, res) => {
-  var localStorage = new LocalStorage('./scratch');
-  //list of purchaseDetailId that has just been inserted
+  // list of purchaseDetailId that has just been inserted
   var purchaseDetailId;
   var purchaseDetailIdList = [];
+  var purchaseDetail;
+  var products = req.body.products;
+  var purchaseHeader = req.body.purchaseHeader;
 
-  //parse localStorage - products
-  var products = JSON.parse(localStorage.getItem('products'));
-  $.each(products, function(key,val){
-    console.log ("creating product number", key);
-    var purchaseDetail = new PurchaseDetail({
-      product: val.productId,
-      qty: val.qty,
-      price: val.price,
-      isPurchase: true
+  async.each(products, function (item, callback){
+      purchaseDetail = new PurchaseDetail({
+        product: item.productId,
+        qty: item.qty,
+        price: item.price,
+        isPurchase: true
+      });
+      purchaseDetail.save((err, newPurchaseDetail) => {
+        if (err) { 
+          console.log ("failed saving product. Cause:", err);
+          return res.json({
+            "Result":"ERROR",
+            "Message": err
+          });  
+        }
+        else {
+          purchaseDetailId = newPurchaseDetail._id;
+          purchaseDetailIdList.push(purchaseDetailId);
+          console.log ("success saving productID:", newPurchaseDetail._id , "..");
+        }
+        callback();
+      }); 
+  }, function (err){
+
+    console.log ('supplierID:', purchaseHeader.supplierId);
+    const purchaseOrder = new PurchaseOrder({
+      purchaseDetail: purchaseDetailIdList,
+      supplierId: purchaseHeader.supplierId,
+      purchaseDate: purchaseHeader.purchaseDate,
+      paidDate : purchaseHeader.paidDate
     });
-    console.log ("saving product number", key);
-    purchaseDetail.save((err, newPurchaseDetail) => {
-      if (err) { 
-          console.log ("failed saving product number..", key ,"\n cause:", err);
-          return res.json({
-            "Result":"ERROR",
-            "Message": err
-          });
-      }
-      else {
-        console.log ("success saving product number", key , "..");
-        purchaseDetailId = newPurchaseDetail._id;
-        purchaseDetailIdList.push(purchaseDetailId);
-      }
-   });
-  });//end of looping localStorage
+    console.log ('purchaseOrder', purchaseOrder);
+    console.log (purchaseDetailIdList);
 
-  //parse localStorage - purchaseHeader
-  var purchaseHeader = JSON.parse(localStorage.getItem('purchaseHeader'));
-  //insert to purchaseOrder
-  console.log ("create object purchase order..");
-  const purchaseOrder = new PurchaseOrder({
-    purchaseDetail: purchaseDetailIdList,
-    supplierId: purchaseHeader.supplierId,
-    purchaseDate: purchaseHeader.purchaseDate,
-    paidDate : purchaseHeader.paidDate
-  });
-  console.log ("saving object purchase order..");
-  purchaseHeader.save((err, newPurchaseOrder) => {
-      if (err) { 
-          console.log ("failed saving purchase order..\n cause:", err);
-          return res.json({
-            "Result":"ERROR",
-            "Message": err
-          });
-      }
-      else {
-        console.log ("success saving purchase order..");
-        purchaseDetailId = newPurchaseDetail._id;
-        purchaseDetailIdList.push(purchaseDetailId);
-      }
-  });
+    // purchaseOrder.save((err, newPurchaseOrder) => {
+    //     if (err) { 
+    //         console.log ("failed saving purchase order..\n cause:", err);
+    //         return res.json({
+    //           "Result":"ERROR",
+    //           "Message": err
+    //         });
+    //     }
+    //     else {
+    //       console.log ("success saving purchase order..", newPurchaseOrder._id);
+    //     }
+    // });
+  });//end async.each
 };
 
 /*

@@ -1,10 +1,19 @@
 $(document).ready(function() {
+    //date-picker
+    $('input#purchaseDate').datepicker();
+    $('input#paidDate').datepicker();
+
+    //load table of products
+    $('div#showProducts').empty();
+    $('div#showProducts').load("showProducts");
+
     //clear all products from localStorage
     $('button#clearProducts').click(function(e){
         e.preventDefault();   
+        e.stopImmediatePropagation();
         localStorage.removeItem('products');  
+        $('div#showProducts').empty();
         alert ("All products have been cleared");
-         $('div#showProducts').empty();
     })
 
     //load form add product
@@ -77,13 +86,18 @@ $(document).ready(function() {
         var purchaseDate= new Date ($('input#purchaseDate').val());
         var paidDate = ($('input#paidDate').val() === null)? null : new Date ($('input#paidDate').val());
         var supplierId = $('select#supplierId').val();
-        var purchaseHeader = {'purchaseDate' : purchaseDate, 'paidDate' : paidDate, 'supplierId' : supplierId};
-        localStorage.setItem('purchaseHeader', JSON.stringify(purchaseHeader));
+        var postPurchaseHeader = {'purchaseDate' : purchaseDate, 'paidDate' : paidDate, 'supplierId' : supplierId};
+        var postProducts = JSON.parse(localStorage.getItem('products'));
         $.ajax ({
             type: 'post',
-            url: 'api/purchaseOrders',
+            url: '/api/purchaseOrders',
+            beforeSend: function(req){req.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr("content"));},
+            data: {
+                products : postProducts,
+                purchaseHeader : postPurchaseHeader
+            },
             success: function (data){
-                
+
             }
         });
     })

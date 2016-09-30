@@ -27,12 +27,33 @@ exports.jtable = (req, res) => {
 *   return list of suppliers
 */
 exports.list = (req, res) => {
+  var sorting = req.query.jtSorting.split(' ');
+  var query = {};
+  var totalRecords = 0;
+
+  query [sorting[0]] = (sorting[1] == 'ASC')? 1: -1;
+
+  Supplier.count({}, (err, total) => {
+    if (err) { 
+      return res.json({
+       "Result":"ERROR",
+       "Message":errors[0].msg,
+      });}
+    else totalRecords = total;
+  });
+
+
   Supplier.find({}, (err, suppliers) => {
     if (err) { return next(err); }
     res.json({
        "Result":"OK",
-       "Records":suppliers});
-    });
+       "Records":suppliers,
+       "TotalRecordCount": totalRecords
+      });
+    })
+    .skip(parseInt (req.query.jtStartIndex))
+    .limit(parseInt (req.query.jtPageSize))
+    .sort(query);
 };
 
 /*

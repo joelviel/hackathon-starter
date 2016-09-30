@@ -1,9 +1,4 @@
 
-
-
-
-        
-
     $(document).ready(function () {
         $('#SupplierTableContainer').jtable({
             title: 'Table of Suppliers',
@@ -19,7 +14,7 @@
                             url: '/api/suppliers',
                             type: 'GET',
                             dataType: 'json',
-                            data: postData,
+                            data: jtParams,
                             success: function (data) {
                                 $dfd.resolve(data);
                             },

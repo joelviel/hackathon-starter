@@ -26,12 +26,38 @@ exports.jtable = (req, res) => {
 *   Returns list of products
 */
 exports.list = (req, res) => {
+  var sorting = req.query.jtSorting.split(' ');
+  var query = {};
+  var totalRecords = 0;
+
+  query [sorting[0]] = (sorting[1] == 'ASC')? 1: -1;
+
+  Product.count({}, (err, total) => {
+    if (err) { 
+      return res.json({
+       "Result":"ERROR",
+       "Message":errors[0].msg,
+      });}
+    else totalRecords = total;
+  });
+
+  
   Product.find({}, (err, products) => {
-    if (err) { return next(err); }
+    if (err) { 
+      return res.json({
+       "Result":"ERROR",
+       "Message":errors[0].msg,
+      });
+     }
     res.json({
        "Result":"OK",
-       "Records":products});
-    });
+       "Records":products,
+       "TotalRecordCount": totalRecords
+      });
+    })
+    .skip(parseInt (req.query.jtStartIndex))
+    .limit(parseInt (req.query.jtPageSize))
+    .sort(query);
 };
 
 /*

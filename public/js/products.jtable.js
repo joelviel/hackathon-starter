@@ -1,16 +1,10 @@
-
-
-
-
-        
-
-    $(document).ready(function () {
+  $(document).ready(function () {
         $('#ProductTableContainer').jtable({
             title: 'Table of Products',
             paging: true,
-            pageSize: 10,
+            pageSize: 5,
             sorting: true,
-            defaultSorting: 'name ASC',
+            defaultSorting: '_id ASC',
             actions: {
                 
                 listAction: function (postData, jtParams) {
@@ -19,7 +13,7 @@
                             url: '/api/products',
                             type: 'GET',
                             dataType: 'json',
-                            data: postData,
+                            data: jtParams,
                             success: function (data) {
                                 $dfd.resolve(data);
                             },
